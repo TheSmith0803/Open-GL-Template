@@ -62,9 +62,14 @@ int main() {
 	{
 		// input
 		processInput(window);
-		// rendering commands here
+
+		//set background color		
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		/////////////////////////////////
+		///* rendering commands here *///
+		/////////////////////////////////
 
 		// check and call events and swap the buffers
 		glfwSwapBuffers(window);
