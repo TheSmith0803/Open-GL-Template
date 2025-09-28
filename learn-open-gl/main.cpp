@@ -1,9 +1,15 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include<string>
+#include<fstream>
+#include<sstream>
+#include<iostream>
+#include<cerrno>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
+std::string get_file_contents(const char* filename);
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
@@ -97,4 +103,23 @@ void processInput(GLFWwindow* window)
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
+}
+
+// function for loading in shader files, did not feel like writing this every time
+// ------------------------------------
+std::string get_file_contents(const char* filename)
+{
+	std::ifstream in(filename, std::ios::binary);
+	if (in)
+	{
+		std::string contents;
+		in.seekg(0, std::ios::end);
+		contents.resize(in.tellg());
+		in.seekg(0, std::ios::beg);
+		in.read(&contents[0], contents.size());
+		in.close();
+		return(contents);
+	}
+	std::cout << "ERROR? Make sure you typed the shader file namer correctly..." << std::endl;
+	throw(errno);
 }
